@@ -11,6 +11,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text PlayerInfoText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -21,6 +22,20 @@ public class MainManager : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
+    {
+        LoadPlayerInfo();
+        CreateLevel();
+    }
+
+    private void LoadPlayerInfo()
+    {
+        string playerName = DataPref.Instance.playerName;
+        int highScore = DataPref.Instance.highScore;
+
+        PlayerInfoText.text = "Best Score: " + highScore + "Player Name: " + playerName;
+    }
+
+    private void CreateLevel()
     {
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
