@@ -8,9 +8,11 @@ public class DataPref : MonoBehaviour
 {
     public static DataPref Instance;
 
-    [HideInInspector]
+    public string currentPlayerName;
+
     public string playerName;
-    [HideInInspector]
+    
+
     public int highScore;
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,7 @@ public class DataPref : MonoBehaviour
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
+            playerName = data.playerName;
             highScore = data.highScore;
         }
     }
@@ -47,6 +50,7 @@ public class DataPref : MonoBehaviour
 
         SaveData data = new()
         {
+            playerName = playerName,
             highScore = highScore,
         };
 
@@ -58,6 +62,7 @@ public class DataPref : MonoBehaviour
     [Serializable]
     public class SaveData
     {
+        public string playerName;
         public int highScore;
     }
 }
